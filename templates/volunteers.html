@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Personnel - ImpactBridge{% endblock %}
+
+{% block content %}
+<div class="personnel-view">
+    <div class="personnel-header">
+        <div>
+            <h2>Response Personnel</h2>
+            <p class="page-subtitle">{{ volunteers|length }} registered responders</p>
+        </div>
+        <a href="{{ url_for('register_volunteer') }}" class="btn btn-primary">+ Register Personnel</a>
+    </div>
+
+    {% if volunteers %}
+        <div class="personnel-list">
+            {% for volunteer in volunteers %}
+                <div class="personnel-card">
+                    <div class="personnel-header">
+                        <div class="personnel-avatar">
+                            <span>{{ volunteer['name'][0] }}</span>
+                        </div>
+                        <div class="personnel-identity">
+                            <h3>{{ volunteer['name'] }}</h3>
+                            <span class="deployment-badge">{% if volunteer['availability'] == 1 %}Available{% else %}Unavailable{% endif %}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="personnel-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Expertise</span>
+                            <span class="detail-value">{{ volunteer['skills'] }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Registered</span>
+                            <span class="detail-value">{{ volunteer['registered_at'][:10] }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>Personnel database empty. Register qualified responders to build operational capacity.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

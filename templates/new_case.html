@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Report Crisis - ImpactBridge{% endblock %}
+
+{% block content %}
+<div class="form-view">
+    <div class="form-sidebar">
+        <h2>Crisis Report</h2>
+        <p class="form-description">Submit detailed situation assessment for priority evaluation and resource deployment.</p>
+        <div class="form-help">
+            <h4>Priority Calculation</h4>
+            <p>Reports are automatically ranked using:</p>
+            <ul>
+                <li>Severity weight: ×3</li>
+                <li>Population weight: ×2</li>
+                <li>Urgency weight: ×4</li>
+                <li>Resource offset: -×2</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="form-main">
+        <form method="POST" class="form">
+            <div class="form-section">
+                <h3>Situation Overview</h3>
+                <div class="form-group">
+                    <label for="title">Situation Title</label>
+                    <input type="text" id="title" name="title" placeholder="Concise description of the crisis" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Situation Assessment</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Location, scope, immediate threats, and resource requirements" required></textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Impact Metrics</h3>
+                <div class="form-grid-3">
+                    <div class="form-group">
+                        <label for="severity">Severity</label>
+                        <input type="number" id="severity" name="severity" min="1" max="5" placeholder="1-5" required>
+                        <small>1: Minimal → 5: Catastrophic</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urgency">Urgency</label>
+                        <input type="number" id="urgency" name="urgency" min="1" max="5" placeholder="1-5" required>
+                        <small>1: 72+ hrs → 5: Immediate</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="people_affected">Population</label>
+                        <input type="number" id="people_affected" name="people_affected" min="0" placeholder="Count" required>
+                        <small>People affected</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Resource Requirements</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="available_resources">Current Resources</label>
+                        <input type="number" id="available_resources" name="available_resources" min="0" placeholder="Available units" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="required_skill">Critical Expertise</label>
+                        <input type="text" id="required_skill" name="required_skill" placeholder="Medical, Structural, Logistics" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit Report</button>
+                <a href="{{ url_for('cases') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

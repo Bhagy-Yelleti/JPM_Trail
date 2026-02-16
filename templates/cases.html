@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Operations - ImpactBridge{% endblock %}
+
+{% block content %}
+<div class="operations-view">
+    <div class="operations-header">
+        <div>
+            <h2>Field Operations</h2>
+            <p class="page-subtitle">Priority-ranked crisis coordination</p>
+        </div>
+        <a href="{{ url_for('new_case') }}" class="btn btn-primary">+ Report Crisis</a>
+    </div>
+
+    {% if cases %}
+        <div class="operations-list">
+            {% for case in cases %}
+                <div class="operation-card {% if case['priority_score'] >= 20 %}critical{% elif case['priority_score'] >= 10 %}elevated{% endif %}">
+                    <div class="operation-priority">
+                        <span class="priority-number">{{ case['priority_score'] }}</span>
+                        <span class="priority-label">Priority</span>
+                    </div>
+                    
+                    <div class="operation-content">
+                        <div class="operation-header">
+                            <h3>{{ case['title'] }}</h3>
+                            <div class="operation-meta">
+                                <span class="meta-badge severity-{{ case['severity'] }}">L{{ case['severity'] }}</span>
+                                <span class="meta-badge urgency-{{ case['urgency'] }}">U{{ case['urgency'] }}</span>
+                            </div>
+                        </div>
+                        
+                        <p class="operation-description">{{ case['description'] }}</p>
+                        
+                        <div class="operation-metrics">
+                            <div class="metric-inline">
+                                <span class="metric-icon">👥</span>
+                                <span>{{ case['people_affected'] }} affected</span>
+                            </div>
+                            <div class="metric-inline">
+                                <span class="metric-icon">📦</span>
+                                <span>{{ case['available_resources'] }} units</span>
+                            </div>
+                            <div class="metric-inline">
+                                <span class="metric-icon">🎯</span>
+                                <span>{{ case['required_skill'] }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="operation-footer">
+                            <small>{{ case['created_at'][:10] }} at {{ case['created_at'][11:16] }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>No active operations. Crisis reports will appear here for immediate deployment.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

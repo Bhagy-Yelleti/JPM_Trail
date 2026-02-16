@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Register Personnel - ImpactBridge{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Personnel Registration</h2>
+    
+    <form method="POST" class="form">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="First and last name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="skills">Professional Expertise</label>
+            <input type="text" id="skills" name="skills" placeholder="Emergency Medicine, Civil Engineering, Supply Chain" required>
+            <small>List primary qualifications (comma-separated)</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="availability">Deployment Capacity</label>
+            <select id="availability" name="availability" required>
+                <option value="">Select deployment status</option>
+                <option value="Full-time">Full-time (40+ hrs/week)</option>
+                <option value="Part-time">Part-time (15-25 hrs/week)</option>
+                <option value="Weekends">Weekend shifts only</option>
+                <option value="On-call">On-call (emergency deployment)</option>
+            </select>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="{{ url_for('volunteers') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

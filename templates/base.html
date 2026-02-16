@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ImpactBridge{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>ImpactBridge</h1>
+                <p class="tagline">Deploy resources where they matter most</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Command Center</a></li>
+                <li><a href="{{ url_for('cases') }}">Operations</a></li>
+                <li><a href="{{ url_for('volunteers') }}">Personnel</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>ImpactBridge &copy; 2026 — Precision coordination for humanitarian response</p>
+        </div>
+    </footer>
+</body>
+</html>

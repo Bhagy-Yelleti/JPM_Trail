@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Command Center - ImpactBridge{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <div class="header-content">
+            <h2>Command Center</h2>
+            <div class="header-actions">
+                <a href="{{ url_for('new_case') }}" class="btn btn-primary">Report Crisis</a>
+                <a href="{{ url_for('register_volunteer') }}" class="btn btn-secondary">Register Personnel</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-layout">
+        <div class="primary-metric">
+            <div class="metric-large priority">
+                <span class="metric-icon">🚨</span>
+                <div class="metric-data">
+                    <h3>{{ high_priority_cases }}</h3>
+                    <p>Critical Priority</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="secondary-metrics">
+            <div class="metric-compact">
+                <span class="metric-label">Live Operations</span>
+                <span class="metric-value">{{ total_cases }}</span>
+            </div>
+            <div class="metric-compact">
+                <span class="metric-label">Deployed Personnel</span>
+                <span class="metric-value">{{ active_volunteers }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-stats">
+        <div class="stat-item">
+            <div class="stat-header">
+                <span class="stat-label">Resolution Rate</span>
+                <span class="stat-value">{{ resolution_rate }}%</span>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-bar-fill" style="width: {{ resolution_rate }}%"></div>
+            </div>
+            <p class="stat-description">Percentage of cases successfully resolved</p>
+        </div>
+        
+        <div class="stat-item">
+            <div class="stat-header">
+                <span class="stat-label">Personnel Utilization</span>
+                <span class="stat-value">{{ volunteer_utilization }}%</span>
+            </div>
+            <div class="stat-bar">
+                <div class="stat-bar-fill {% if volunteer_utilization >= 80 %}high-utilization{% endif %}" style="width: {{ volunteer_utilization }}%"></div>
+            </div>
+            <p class="stat-description">Active deployment capacity usage</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
